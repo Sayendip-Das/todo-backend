@@ -6,6 +6,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "http://localhost:5173"
+)
 DEFAULT_SCHEMA_NAME = os.getenv("DEFAULT_SCHEMA_NAME")
 
 JWT_SECRET = os.getenv("JWT_SECRET")

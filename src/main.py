@@ -10,7 +10,7 @@ from sqlalchemy import text
 
 from contextlib import asynccontextmanager
 from src.db.database import Base, engine
-from src.core.config import DEFAULT_SCHEMA_NAME
+from src.core.config import DEFAULT_SCHEMA_NAME, FRONTEND_URL
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -36,11 +36,19 @@ async def lifespan(app: FastAPI):
 # FastAPI App
 app = FastAPI(lifespan=lifespan)
 
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy"
+    }
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        FRONTEND_URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
